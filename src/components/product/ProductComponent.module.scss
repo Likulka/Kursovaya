@@ -1,0 +1,20 @@
+// MyComponent.module.scss
+.image {
+	object-fit: contain;
+	width: 200px;
+	height: 200px;
+}
+
+.weight-switcher {
+	display: flex;
+	justify-content: space-around;
+}
+
+.product-body{
+	text-align: center;
+}
+
+.btn-container{
+	display: flex;
+	justify-content: center;
+}

@@ -39,16 +39,17 @@ const Customer = ({ children }) => {
 
 	// Интерфейс для детей (например, кнопки оплаты и отображение баланса)
 	return (
-		<div>
-			{/* Здесь может быть интерфейс пользователя для покупателя */}
+		<>
+			<h3>Счет: {walletBalance}</h3>
 			{children({
 				payWithCard,
 				payWithBonus,
 				walletBalance,
 				bonusPoints,
 				paymentSuccess,
+				setPaymentSuccess,
 			})}
-		</div>
+		</>
 	)
 }
 

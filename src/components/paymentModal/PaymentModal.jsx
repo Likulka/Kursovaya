@@ -1,24 +1,31 @@
-const PaymentModal = ({ total, useBonus, setUseBonus, onPay }) => {
+import React, { useState } from 'react'
+
+const PaymentModal = ({ total, onPay, bonusPoints }) => {
+	const [inputValue, setInputValue] = useState(0)
+
 	const handleSliderChange = e => {
-		setUseBonus(e.target.value) // Обновляем количество используемых бонусов
+		setInputValue(e.target.value)
 	}
 
 	const handlePayClick = () => {
-		onPay() // Вызываем функцию оплаты
+		onPay(inputValue)
+		// Дополнительно, здесь можно обработать закрытие модального окна или другие действия после оплаты
 	}
 
 	return (
 		<div className='payment-modal'>
-			<h2>Payment Information</h2>
-			<p>Total Amount: {total - useBonus} (Remaining after bonus)</p>
-			<p>Bonus Points Usage:</p>
+			<h2>Оплата</h2>
+			<p>Стоимость: {total}₽</p>
+			<p>Стоимость после применения бонусов: {total - inputValue}₽</p>
+			<p>Использовать бонусы:</p>
 			<input
 				type='range'
 				min='0'
-				max={total}
-				value={useBonus}
+				max={bonusPoints}
+				value={inputValue}
 				onChange={handleSliderChange}
 			/>
+			<div>Используемые бонусы: {inputValue}</div>
 			<div>
 				<button onClick={handlePayClick}>Confirm Payment</button>
 			</div>

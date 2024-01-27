@@ -7,19 +7,47 @@ export const useCart = () => useContext(CartContext)
 
 export const CartProvider = ({ children }) => {
 	const [cartItems, setCartItems] = useState([])
+	const [isCartVisible, setIsCartVisible] = useState(false)
 
-	const addToCart = product => {
-		setCartItems([...cartItems, product])
+	const addToCart = newProduct => {
+		setCartItems(prevCartItems => {
+			// Проверяем, есть ли уже такой продукт в корзине
+			const existingProduct = prevCartItems.find(
+				item => item.name === newProduct.name
+			)
+
+			if (existingProduct) {
+				// Если продукт уже есть, увеличиваем его количество
+				return prevCartItems.map(item =>
+					item.name === newProduct.name
+						? { ...item, quantity: item.quantity + newProduct.quantity }
+						: item
+				)
+			} else {
+				// Если нет, добавляем новый продукт
+				return [...prevCartItems, newProduct]
+			}
+		})
 	}
 
-	const removeFromCart = productId => {
-		setCartItems(cartItems.filter(item => item.id !== productId))
+	const removeFromCart = name => {
+		setCartItems(cartItems.filter(item => item.name !== name))
 	}
 
-	// Добавьте любые другие действия, которые вам нужны для корзины
+	const toggleCartVisibility = () => {
+		setIsCartVisible(!isCartVisible)
+	}
 
 	return (
-		<CartContext.Provider value={{ cartItems, addToCart, removeFromCart }}>
+		<CartContext.Provider
+			value={{
+				cartItems,
+				addToCart,
+				removeFromCart,
+				isCartVisible,
+				toggleCartVisibility,
+			}}
+		>
 			{children}
 		</CartContext.Provider>
 	)

@@ -1,0 +1,28 @@
+.cart-header {
+	display: flex;
+}
+
+.cart-item {
+	display: flex; /* Используем Flexbox */
+	align-items: center; /* Выравниваем элементы по центру по вертикали */
+	justify-content: space-between; /* Распределяем пространство между элементами */
+	margin-bottom: 10px;
+}
+
+.cart-item-info {
+	display: flex;
+	flex-direction: column;
+}
+
+.cart-item-info > div {
+	text-align: center;
+}
+
+.cart-item button {
+	height: 100%;
+}
+
+.cart-item img {
+	object-fit: contain;
+	max-width: 100px;
+}

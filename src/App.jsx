@@ -1,40 +1,26 @@
-import CartComponent from './components/cart/Cart'
-import CatalogComponent from './components/catalog/CatalogComponent'
-import Customer from './components/user/Customer'
-import { CartProvider } from './providers/cartProvider/CartProvider'
+import Layout from '@/pages/layout/Layout'
+import HomePage from '@/pages/main/HomePage'
+import { CartProvider } from '@/providers/cartProvider/CartProvider'
+import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
 
-function App() {
+// Импорты других страниц
+
+const App = () => {
 	return (
-		<>
+		<Router>
 			<CartProvider>
-				<div className='wrapper'>
-					<div className='container'>
-						<main>
-							<Customer>
-								{({
-									payWithCard,
-									payWithBonus,
-									walletBalance,
-									bonusPoints,
-									paymentSuccess,
-								}) => (
-									<div className='product-list'>
-										<CatalogComponent />
-										<CartComponent
-											payWithCard={payWithCard}
-											payWithBonus={payWithBonus}
-											walletBalance={walletBalance}
-											bonusPoints={bonusPoints}
-											paymentSuccess={paymentSuccess}
-										/>
-									</div>
-								)}
-							</Customer>
-						</main>
-					</div>
-				</div>
+				<Layout>
+					<Routes>
+						<Route path='/' element={<HomePage />}></Route>
+
+						{/* <Route path='/payment'>
+						<PaymentPage />
+					</Route> */}
+						{/* Другие маршруты */}
+					</Routes>
+				</Layout>
 			</CartProvider>
-		</>
+		</Router>
 	)
 }
 
